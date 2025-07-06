@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>Athubi - AI Trading Assistant</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    </noscript>
     <style>
         :root {
             --primary: #2563eb;
@@ -204,6 +208,8 @@
             width: 100%;
             height: auto;
             display: block;
+            loading: lazy;
+            decoding: async;
         }
         
         /* Features Section */
@@ -703,16 +709,16 @@
     <header id="header">
         <div class="container">
             <nav>
-                <a href="#" class="logo">
+                <a href="#" class="logo" aria-label="Athubi Home">
                     <div class="logo-icon">A</div>
                     <span>Athubi</span>
                 </a>
                 <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#countdown">Launch</a>
-                    <a href="#waitlist">Waitlist</a>
+                    <a href="#features" aria-label="Features">Features</a>
+                    <a href="#countdown" aria-label="Launch Countdown">Launch</a>
+                    <a href="#waitlist" aria-label="Join Waitlist">Waitlist</a>
                 </div>
-                <a href="#waitlist" class="cta-button">Join Waitlist</a>
+                <a href="#waitlist" class="cta-button" aria-label="Join Waitlist">Join Waitlist</a>
             </nav>
         </div>
     </header>
@@ -730,7 +736,7 @@
                 </div>
                 
                 <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="AI Trading Assistant">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="AI Trading Assistant" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -747,7 +753,7 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
                     </div>
                     <h3>Asset Tracking</h3>
                     <p>Continuously monitors your current trading positions and assets. Know exactly how your portfolio is performing in real-time.</p>
@@ -755,7 +761,7 @@
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-bell"></i>
+                        <i class="fas fa-bell" aria-hidden="true"></i>
                     </div>
                     <h3>Event Alerts</h3>
                     <p>Get notified before and during major news events (Fed meetings, CPI data, earnings reports, OPEC decisions) that affect your assets.</p>
@@ -763,7 +769,7 @@
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+                        <i class="fas fa-bolt" aria-hidden="true"></i>
                     </div>
                     <h3>Real-time News</h3>
                     <p>Instant alerts for breaking news that moves markets - geopolitical tensions, trade bans, natural disasters, and more.</p>
@@ -771,7 +777,7 @@
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-lightbulb"></i>
+                        <i class="fas fa-lightbulb" aria-hidden="true"></i>
                     </div>
                     <h3>Daily Trade Ideas</h3>
                     <p>Receive actionable trade opportunities even during quiet market periods. Our AI identifies patterns others miss.</p>
@@ -779,7 +785,7 @@
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
                     </div>
                     <h3>Loss Prevention</h3>
                     <p>Stay ahead of global catalysts that could impact your positions. Protective alerts help you minimize risk and preserve capital.</p>
@@ -815,7 +821,7 @@
                 </div>
                 
                 <div class="launch-text">
-                    <i class="fas fa-calendar-alt"></i> Official Launch: <span id="launch-date"></span>
+                    <i class="fas fa-calendar-alt" aria-hidden="true"></i> Official Launch: <span id="launch-date"></span>
                 </div>
             </div>
         </div>
@@ -830,52 +836,53 @@
                 
                 <div class="waitlist-form">
                     <h3>Get Early Access</h3>
-                    <div class="form-message" id="formMessage"></div>
+                    <div class="form-message" id="formMessage" role="alert"></div>
                     <form id="waitlistForm">
+                        <input type="hidden" name="_csrf" id="csrfToken">
                         <div class="form-group">
                             <label for="waitlist-name">Full Name *</label>
-                            <input type="text" id="waitlist-name" name="name" placeholder="Enter your full name" required>
+                            <input type="text" id="waitlist-name" name="name" placeholder="Enter your full name" required aria-required="true">
                         </div>
                         
                         <div class="form-group">
                             <label for="waitlist-email">Email Address *</label>
-                            <input type="email" id="waitlist-email" name="email" placeholder="Enter your email" required>
+                            <input type="email" id="waitlist-email" name="email" placeholder="Enter your email" required aria-required="true">
                         </div>
                         
                         <div class="form-group">
                             <label for="waitlist-phone">Phone Number</label>
-                            <input type="tel" id="waitlist-phone" name="phone" placeholder="Enter your phone number">
+                            <input type="tel" id="waitlist-phone" name="phone" placeholder="Enter your phone number" aria-label="Phone number (optional)">
                         </div>
                         
                         <div class="form-group">
                             <label for="waitlist-assets">What do you trade? (Optional)</label>
-                            <input type="text" id="waitlist-assets" name="assets" placeholder="USD/INR, Gold, Tech stocks, etc.">
+                            <input type="text" id="waitlist-assets" name="assets" placeholder="USD/INR, Gold, Tech stocks, etc." aria-label="What you trade (optional)">
                         </div>
                         
                         <div class="form-check">
-                            <input type="checkbox" id="waitlist-terms" name="terms" required>
+                            <input type="checkbox" id="waitlist-terms" name="terms" required aria-required="true">
                             <label for="waitlist-terms">I agree to receive updates about Athubi's development and launch</label>
                         </div>
                         
-                        <button type="submit" class="submit-btn" id="submitBtn">Join Waitlist</button>
+                        <button type="submit" class="submit-btn" id="submitBtn" aria-label="Submit waitlist form">Join Waitlist</button>
                     </form>
                 </div>
                 
                 <div class="waitlist-benefits">
                     <div class="benefit-card">
-                        <i class="fas fa-gift"></i>
+                        <i class="fas fa-gift" aria-hidden="true"></i>
                         <p>Exclusive launch discount</p>
                     </div>
                     <div class="benefit-card">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
                         <p>Premium features trial</p>
                     </div>
                     <div class="benefit-card">
-                        <i class="fas fa-headset"></i>
+                        <i class="fas fa-headset" aria-hidden="true"></i>
                         <p>Priority support access</p>
                     </div>
                     <div class="benefit-card">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
                         <p>Early feature previews</p>
                     </div>
                 </div>
@@ -891,9 +898,9 @@
                     <h3>Athubi</h3>
                     <p>AI-Powered Trading Assistant<br>Coming Soon</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
                 
@@ -926,15 +933,27 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 Athubi. All rights reserved. Not financial advice. Product coming soon.</p>
+                <p>&copy; <span id="current-year"></span> Athubi. All rights reserved. Not financial advice. Product coming soon.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Set launch date to 6 months from now
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Generate CSRF token
+        function generateCSRFToken() {
+            return 'csrf-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+        }
+        document.getElementById('csrfToken').value = generateCSRFToken();
+
+        // Set launch date to 6 months from now with year rollover protection
         const launchDate = new Date();
         launchDate.setMonth(launchDate.getMonth() + 6);
+        if (launchDate < new Date()) {
+            launchDate.setFullYear(launchDate.getFullYear() + 1);
+        }
         
         // Format launch date for display
         document.getElementById('launch-date').textContent = launchDate.toLocaleDateString('en-US', { 
@@ -969,10 +988,15 @@
                 document.getElementById('seconds').textContent = '00';
                 document.querySelector('.countdown h2').textContent = 'Athubi Has Launched!';
                 document.querySelector('.countdown p').innerHTML = 'The trading revolution is here. Get started now!';
-                document.querySelector('.launch-text').innerHTML = '<i class="fas fa-rocket"></i> Product is now live!';
+                document.querySelector('.launch-text').innerHTML = '<i class="fas fa-rocket" aria-hidden="true"></i> Product is now live!';
             }
         }, 1000);
         
+        // Input sanitization
+        function sanitizeInput(input) {
+            return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
         // Form submission to Azure SQL Database
         document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -981,11 +1005,11 @@
             const submitBtn = document.getElementById('submitBtn');
             const formMessage = document.getElementById('formMessage');
             
-            // Get form values
-            const name = document.getElementById('waitlist-name').value;
-            const email = document.getElementById('waitlist-email').value;
-            const phone = document.getElementById('waitlist-phone').value || null;
-            const assets = document.getElementById('waitlist-assets').value || null;
+            // Get and sanitize form values
+            const name = sanitizeInput(document.getElementById('waitlist-name').value);
+            const email = sanitizeInput(document.getElementById('waitlist-email').value);
+            const phone = document.getElementById('waitlist-phone').value ? sanitizeInput(document.getElementById('waitlist-phone').value) : null;
+            const assets = document.getElementById('waitlist-assets').value ? sanitizeInput(document.getElementById('waitlist-assets').value) : null;
             
             // Validate email
             if (!validateEmail(email)) {
@@ -995,7 +1019,7 @@
             
             // Disable button and show loading
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Processing...';
+            submitBtn.innerHTML = '<span class="spinner"></span> Processing...';
             
             try {
                 // Create waitlist entry
@@ -1004,28 +1028,33 @@
                     email,
                     phone,
                     assets,
-                    signup_date: new Date().toISOString()
+                    signup_date: new Date().toISOString(),
+                    _csrf: document.getElementById('csrfToken').value
                 };
                 
                 // Send to Azure SQL backend
                 const response = await fetch('https://athubi-backend.azurewebsites.net/api/waitlist', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify(waitlistEntry)
                 });
                 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Failed to save data');
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
                 }
+
+                const data = await response.json();
                 
                 // Show success message
                 showMessage(`Thank you ${name}! You've been added to the Athubi waitlist. We'll notify you at ${email} when we launch.`, 'success');
                 
                 // Reset form
                 document.getElementById('waitlistForm').reset();
+                document.getElementById('csrfToken').value = generateCSRFToken();
                 
             } catch (error) {
                 console.error('Error:', error);
@@ -1042,6 +1071,7 @@
             const formMessage = document.getElementById('formMessage');
             formMessage.textContent = message;
             formMessage.className = `form-message ${type}`;
+            formMessage.setAttribute('aria-live', 'polite');
             
             // Scroll to message
             formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1049,7 +1079,7 @@
         
         // Email validation
         function validateEmail(email) {
-            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(String(email).toLowerCase());
         }
         
@@ -1074,9 +1104,19 @@
                         top: target.offsetTop - 80,
                         behavior: 'smooth'
                     });
+                    
+                    // Update URL without page reload
+                    if (history.pushState) {
+                        history.pushState(null, null, this.getAttribute('href'));
+                    }
                 }
             });
         });
+
+        // Image fallback
+        document.querySelector('.hero-image img').onerror = function() {
+            this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYwMCI+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjZWVlIi8+PHRleHQgeD0iNjAwIiB5PSIzMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzY2NiI+Q2hhcnRzIGFuZCBtYXJrZXQgZGF0YSB2aXN1YWxpemF0aW9uPC90ZXh0Pjwvc3ZnPg==';
+        };
     </script>
 </body>
 </html>
