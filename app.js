@@ -1,32 +1,4 @@
-// =================================================================
-// FIREBASE INITIALIZATION AND AUTH CODE
-// =================================================================
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCDEF2s53L10BU_3mNFtiQEUOaiXg2_TB8",
-  authDomain: "athbee-57bc8.firebaseapp.com",
-  databaseURL: "https://athbee-57bc8-default-rtdb.firebaseio.com",
-  projectId: "athbee-57bc8",
-  storageBucket: "athbee-57bc8.firebasestorage.app",
-  messagingSenderId: "41052655208",
-  appId: "1:41052655208:web:56ba26911caddd793df5dd",
-  measurementId: "G-40B4Z3H0MZ"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-// =================================================================
-// ATHBEE APP CLASS (ENHANCED WITH FIREBASE AUTH)
-// =================================================================
-
+// Enhanced Athbee App with Real-time News Features - Fixed Navigation
 class AthbeeApp {
     constructor() {
         this.currentScreen = 'login-screen';
@@ -291,24 +263,12 @@ class AthbeeApp {
     setupEventListeners() {
         // Login functionality
         const loginBtn = document.getElementById('login-btn');
-        const googleLoginBtn = document.getElementById('google-login-btn'); // Get the Google button
-
         if (loginBtn) {
             loginBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 console.log('Login button clicked');
                 this.handleLogin();
-            });
-        }
-
-        // Add event listener for the new Google login button
-        if (googleLoginBtn) {
-            googleLoginBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Google login button clicked');
-                this.handleGoogleLogin(); // Call the new login handler
             });
         }
 
@@ -345,17 +305,13 @@ class AthbeeApp {
             const targetScreen = item.getAttribute('data-screen');
             console.log(`Setting up sidebar item ${index}: ${targetScreen}`);
             
-            // Remove any existing listeners
-            const newItem = item.cloneNode(true);
-            item.parentNode.replaceChild(newItem, item);
-            
-            newItem.addEventListener('click', (e) => {
+            item.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 console.log('Sidebar clicked, target screen:', targetScreen);
                 if (targetScreen) {
                     this.showScreen(targetScreen);
-                    this.updateActiveSidebarItem(newItem);
+                    this.updateActiveSidebarItem(item);
                 }
             });
         });
@@ -368,17 +324,13 @@ class AthbeeApp {
             const targetScreen = item.getAttribute('data-screen');
             console.log(`Setting up nav item ${index}: ${targetScreen}`);
             
-            // Remove any existing listeners
-            const newItem = item.cloneNode(true);
-            item.parentNode.replaceChild(newItem, item);
-            
-            newItem.addEventListener('click', (e) => {
+            item.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 console.log('Bottom nav clicked, target screen:', targetScreen);
                 if (targetScreen) {
                     this.showScreen(targetScreen);
-                    this.updateActiveNavItem(newItem);
+                    this.updateActiveNavItem(item);
                 }
             });
         });
@@ -530,35 +482,6 @@ class AthbeeApp {
         this.navigateToHome();
     }
 
-    async handleGoogleLogin() {
-        try {
-            console.log('Attempting Google Sign-In...');
-            const result = await signInWithPopup(auth, provider);
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            
-            console.log("Successfully signed in with Google:", user.displayName);
-            console.log("User email:", user.email);
-            
-            // On successful login, navigate to the home screen
-            this.navigateToHome();
-
-        } catch (error) {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.customData ? error.customData.email : 'N/A';
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            console.error("Google Sign-In Error:", errorCode, errorMessage);
-            
-            // Show user-friendly error notification
-            this.showNotification('Google Sign-In failed. Please try again.');
-        }
-    }
-
     navigateToHome() {
         console.log('Navigating to home...');
         this.showScreen('home-screen');
@@ -609,6 +532,9 @@ class AthbeeApp {
                 break;
             case 'portfolio-screen':
                 this.loadPortfolioContent();
+                break;
+            case 'premarket-screen':
+                this.loadPreMarketContent();
                 break;
             case 'focus-screen':
                 this.loadFocusContent();
@@ -1123,6 +1049,44 @@ class AthbeeApp {
         return card;
     }
 
+    loadPreMarketContent() {
+        console.log('Loading pre-market content...');
+        const eventsContainer = document.getElementById('premarket-events');
+        const moversContainer = document.getElementById('premarket-movers-list');
+
+        if (eventsContainer) {
+            eventsContainer.innerHTML = '';
+            const events = [
+                "RBI Monetary Policy announcement at 10:00 AM",
+                "TCS Q2 earnings call at 4:00 PM",
+                "RELIANCE board meeting for bonus issue",
+                "HDFC Bank management commentary on credit growth"
+            ];
+
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'premarket-event';
+                eventDiv.innerHTML = `<h5>${event}</h5>`;
+                eventsContainer.appendChild(eventDiv);
+            });
+        }
+
+        if (moversContainer) {
+            moversContainer.innerHTML = '';
+            this.data.portfolio.stocks.forEach(stock => {
+                const moverDiv = document.createElement('div');
+                moverDiv.className = 'premarket-mover';
+                moverDiv.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>${stock.logo} ${stock.symbol}</span>
+                        <span class="positive">+${stock.change_percent}%</span>
+                    </div>
+                `;
+                moversContainer.appendChild(moverDiv);
+            });
+        }
+    }
+
     loadFocusContent() {
         console.log('Loading focus mode content...');
         
@@ -1420,7 +1384,7 @@ class AthbeeApp {
 
     // Utility methods
     isMainScreen(screenId) {
-        const mainScreens = ['home-screen', 'markets-screen', 'portfolio-screen', 'focus-screen', 'alerts-screen', 'settings-screen'];
+        const mainScreens = ['home-screen', 'markets-screen', 'portfolio-screen', 'premarket-screen', 'focus-screen', 'alerts-screen', 'settings-screen'];
         return mainScreens.includes(screenId);
     }
 
