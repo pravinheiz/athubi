@@ -297,8 +297,8 @@ class AthbeeApp {
     setupNavigation() {
         console.log('Setting up navigation...');
         
-        // Desktop sidebar navigation - Fixed
-        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        // MODIFICATION: Select only buttons to prevent overriding link behavior
+        const sidebarItems = document.querySelectorAll('.sidebar-item:not(a)');
         console.log('Found sidebar items:', sidebarItems.length);
         
         sidebarItems.forEach((item, index) => {
@@ -320,8 +320,8 @@ class AthbeeApp {
             });
         });
 
-        // Bottom navigation (mobile) - Fixed
-        const navItems = document.querySelectorAll('.nav-item');
+        // MODIFICATION: Select only buttons
+        const navItems = document.querySelectorAll('.nav-item:not(a)');
         console.log('Found nav items:', navItems.length);
         
         navItems.forEach((item, index) => {
@@ -540,9 +540,6 @@ class AthbeeApp {
                 break;
             case 'portfolio-screen':
                 this.loadPortfolioContent();
-                break;
-            case 'premarket-screen':
-                this.loadPreMarketContent();
                 break;
             case 'focus-screen':
                 this.loadFocusContent();
@@ -1057,44 +1054,6 @@ class AthbeeApp {
         return card;
     }
 
-    loadPreMarketContent() {
-        console.log('Loading pre-market content...');
-        const eventsContainer = document.getElementById('premarket-events');
-        const moversContainer = document.getElementById('premarket-movers-list');
-
-        if (eventsContainer) {
-            eventsContainer.innerHTML = '';
-            const events = [
-                "RBI Monetary Policy announcement at 10:00 AM",
-                "TCS Q2 earnings call at 4:00 PM",
-                "RELIANCE board meeting for bonus issue",
-                "HDFC Bank management commentary on credit growth"
-            ];
-
-            events.forEach(event => {
-                const eventDiv = document.createElement('div');
-                eventDiv.className = 'premarket-event';
-                eventDiv.innerHTML = `<h5>${event}</h5>`;
-                eventsContainer.appendChild(eventDiv);
-            });
-        }
-
-        if (moversContainer) {
-            moversContainer.innerHTML = '';
-            this.data.portfolio.stocks.forEach(stock => {
-                const moverDiv = document.createElement('div');
-                moverDiv.className = 'premarket-mover';
-                moverDiv.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>${stock.logo} ${stock.symbol}</span>
-                        <span class="positive">+${stock.change_percent}%</span>
-                    </div>
-                `;
-                moversContainer.appendChild(moverDiv);
-            });
-        }
-    }
-
     loadFocusContent() {
         console.log('Loading focus mode content...');
         
@@ -1392,7 +1351,7 @@ class AthbeeApp {
 
     // Utility methods
     isMainScreen(screenId) {
-        const mainScreens = ['home-screen', 'markets-screen', 'portfolio-screen', 'premarket-screen', 'focus-screen', 'alerts-screen', 'settings-screen'];
+        const mainScreens = ['home-screen', 'markets-screen', 'portfolio-screen', 'focus-screen', 'alerts-screen', 'settings-screen'];
         return mainScreens.includes(screenId);
     }
 
