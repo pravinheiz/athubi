@@ -1,4 +1,32 @@
-// Enhanced Athbee App with Real-time News Features - Fixed Navigation
+// =================================================================
+// FIREBASE INITIALIZATION AND AUTH CODE
+// =================================================================
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCDEF2s53L10BU_3mNFtiQEUOaiXg2_TB8",
+  authDomain: "athbee-57bc8.firebaseapp.com",
+  databaseURL: "https://athbee-57bc8-default-rtdb.firebaseio.com",
+  projectId: "athbee-57bc8",
+  storageBucket: "athbee-57bc8.firebasestorage.app",
+  messagingSenderId: "41052655208",
+  appId: "1:41052655208:web:56ba26911caddd793df5dd",
+  measurementId: "G-40B4Z3H0MZ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+// =================================================================
+// ATHBEE APP CLASS (ENHANCED WITH FIREBASE AUTH)
+// =================================================================
+
 class AthbeeApp {
     constructor() {
         this.currentScreen = 'login-screen';
@@ -263,12 +291,24 @@ class AthbeeApp {
     setupEventListeners() {
         // Login functionality
         const loginBtn = document.getElementById('login-btn');
+        const googleLoginBtn = document.getElementById('google-login-btn'); // Get the Google button
+
         if (loginBtn) {
             loginBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 console.log('Login button clicked');
                 this.handleLogin();
+            });
+        }
+
+        // Add event listener for the new Google login button
+        if (googleLoginBtn) {
+            googleLoginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Google login button clicked');
+                this.handleGoogleLogin(); // Call the new login handler
             });
         }
 
@@ -488,6 +528,35 @@ class AthbeeApp {
     handleLogin() {
         console.log('Handling login...');
         this.navigateToHome();
+    }
+
+    async handleGoogleLogin() {
+        try {
+            console.log('Attempting Google Sign-In...');
+            const result = await signInWithPopup(auth, provider);
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            
+            console.log("Successfully signed in with Google:", user.displayName);
+            console.log("User email:", user.email);
+            
+            // On successful login, navigate to the home screen
+            this.navigateToHome();
+
+        } catch (error) {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData ? error.customData.email : 'N/A';
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            console.error("Google Sign-In Error:", errorCode, errorMessage);
+            
+            // Show user-friendly error notification
+            this.showNotification('Google Sign-In failed. Please try again.');
+        }
     }
 
     navigateToHome() {
